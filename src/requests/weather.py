@@ -30,8 +30,6 @@ def get_weather():
     return_data['f'] = []
     for i in range(6):
         obj = data['daily'][i]
-        print(return_data['f'])
-        print(i)
         return_data['f'].append({
             'temp': {'min': float(obj['temp'].get('min', 0)),
                      'max': float(obj['temp'].get('max', 0))},
