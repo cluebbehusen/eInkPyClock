@@ -6,7 +6,7 @@ from src.util.util import request_log, general_log
 
 def get_weather():
     try:
-        with open('weather2342.txt', 'r') as weather_file:
+        with open('weather.txt', 'r') as weather_file:
             lines = weather_file.readlines()
             api_key = lines[0].strip()
             lat = float(lines[1].strip())
