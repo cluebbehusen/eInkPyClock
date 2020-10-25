@@ -1,22 +1,15 @@
 from datetime import datetime
 import spotipy
-from src.util.util import request_log, general_log
+from src.util.util import request_log
 
 SPOT_SCOPE = ('user-read-private, user-read-recently-played,' +
               ' user-read-playback-state, user-read-currently-playing')
 REDIRECT_URI = 'http://www.google.com/'
 
 
-def get_spotify():
-    try:
-        with open('spotify.txt', 'r') as weather_file:
-            lines = weather_file.readlines()
-            client_id = lines[0].strip()
-            client_secret = lines[1].strip()
-    except FileNotFoundError:
-        general_log(str(datetime.now()) +
-                    ' Failed to open spotify metadata file')
-        return None
+def get_spotify(config):
+    client_id = config['client_id']
+    client_secret = config['client_secret']
     oauth = spotipy.oauth2.SpotifyOAuth(client_id, client_secret, REDIRECT_URI,
                                         scope=SPOT_SCOPE, requests_timeout=10,
                                         cache_path='.cache')

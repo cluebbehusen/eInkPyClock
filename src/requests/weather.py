@@ -1,20 +1,13 @@
 import datetime
 import requests as req
 
-from src.util.util import request_log, general_log
+from src.util.util import request_log
 
 
-def get_weather():
-    try:
-        with open('weather.txt', 'r') as weather_file:
-            lines = weather_file.readlines()
-            api_key = lines[0].strip()
-            lat = float(lines[1].strip())
-            long = float(lines[2].strip())
-    except FileNotFoundError:
-        general_log(str(datetime.datetime.now()) +
-                    ' Failed to open weather metadata file')
-        return None
+def get_weather(config):
+    api_key = config['api_key']
+    lat = float(config['latitude'])
+    long = float(config['longitude'])
     response = req.get('https://api.openweathermap.org/data/2.5/onecall?lat=' +
                        str(lat) + '&lon=' + str(long) + '&appid=' + api_key +
                        '&exclude=minutely,hourly,alerts&units=imperial')
