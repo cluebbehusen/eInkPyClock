@@ -13,7 +13,6 @@ def get_spotify():
             lines = weather_file.readlines()
             client_id = lines[0].strip()
             client_secret = lines[1].strip()
-            client_username = lines[2].strip()
     except FileNotFoundError:
         general_log(str(datetime.now()) +
                     ' Failed to open spotify metadata file')
@@ -61,13 +60,18 @@ def get_info(token):
         time_delta = datetime.utcnow() - time
         hours_passed, minutes_passed = get_time_values(time_delta.seconds)
         time_passed = get_time_passed(hours_passed, minutes_passed)
-    return {
+    return_dict = {
         'track': track,
         'artist': artist,
         'time_passed': time_passed,
         'type': type,
         'name': name
     }
+    for key in return_dict:
+        if not return_dict[key]:
+            request_log(str(datetime.now()) +
+                        'Failed to get ' + key + ' from spotipy')
+    return return_dict
 
 
 def get_context_from_json(context_json, spotipy_obj):
