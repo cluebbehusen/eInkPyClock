@@ -4,6 +4,7 @@ import sys
 from src.requests.bitcoin import get_bitcoin_price
 from src.requests.weather import get_weather
 from src.requests.spotify import get_spotify
+from src.display.weather import draw_weather_icon
 
 
 if __name__ == '__main__':
@@ -13,6 +14,7 @@ if __name__ == '__main__':
     except FileNotFoundError:
         print('Failed to open config file')
         sys.exit(1)
-    print(get_bitcoin_price())
-    print(json.dumps(get_weather(config['weather'])))
-    print(get_spotify(config['spotify']))
+    # print(get_bitcoin_price())
+    # print(json.dumps(get_weather(config['weather'])))
+    # print(get_spotify(config['spotify']))
+    draw_weather_icon()
