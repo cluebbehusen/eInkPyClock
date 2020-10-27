@@ -13,6 +13,7 @@ rain_icon = Image.open('icons/Rain.png')
 snow_icon = Image.open('icons/Snow.png')
 sun_icon = Image.open('icons/Sun.png')
 thunderstorm_icon = Image.open('icons/Thunderstorm.png')
+music_icon = Image.open('icons/Music.png')
 
 
 def draw_weather_icon():
@@ -31,5 +32,6 @@ def draw_weather_icon():
     image.paste(snow_icon, (75, 175))
     image.paste(sun_icon, (75, 225))
     image.paste(thunderstorm_icon, (125, 25))
+    image.paste(music_icon, (125, 75))
     image_buffer = epd.getbuffer(image)
     epd.display(image_buffer)
