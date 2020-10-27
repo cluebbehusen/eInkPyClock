@@ -81,7 +81,6 @@ large_font = {
     '…': '25', '€': '29', '™': '41', '\x00': '36'
 }
 
-
 ds16 = ImageFont.truetype('font/Nintendo-DS-BIOS.ttf', 16)
 ds32 = ImageFont.truetype('font/Nintendo-DS-BIOS.ttf', 32)
 ds64 = ImageFont.truetype('font/Nintendo-DS-BIOS.ttf', 64)
