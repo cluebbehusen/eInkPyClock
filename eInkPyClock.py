@@ -25,3 +25,5 @@ if __name__ == '__main__':
     epd.Clear()
     image = Image.new('1', (epd.width, epd.height), 128)
     add_bitcoin_graphics(image, 2, 2)
+    image_buffer = epd.getbuffer(image)
+    epd.display(image_buffer)`
