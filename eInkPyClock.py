@@ -9,7 +9,7 @@ from src.requests.bitcoin import get_bitcoin_price
 # from src.requests.spotify import get_spotify
 # from src.display.weather import draw_weather_icon
 from src.display.bitcoin import add_bitcoin_graphics
-from src.display.general import draw_line
+from src.display.general import draw_box
 from src.display.time import add_time_graphics
 
 
@@ -29,9 +29,11 @@ if __name__ == '__main__':
     image = Image.new('1', (epd.width, epd.height), 128)
     draw = ImageDraw.Draw(image)
     add_bitcoin_graphics(image, draw, 8, 6, bitcoin_price)
-    draw_line(draw, 0, 400, 48 + 6 * 2, 48 + 6 * 2 + 3)
+    draw_box(draw, 0, 400, 48 + 6 * 2, 48 + 6 * 2 + 3)
     time = datetime.today().strftime('%H:%M')
     date = datetime.today().strftime('%b %d')
     add_time_graphics(draw, 8, 48 + 6 * 4, time, date)
+    draw_box(draw, 0, 400, 48 + 6 * 2 + 3 + 102, 48 + 6 * 2 + 6 + 105)
+    draw_box(draw, 125, 128, 48 + 6 * 2 + 3, 48 + 6 * 2 + 3 + 105)
     image_buffer = epd.getbuffer(image)
     epd.display(image_buffer)
