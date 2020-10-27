@@ -53,7 +53,7 @@ medium_font = {
     '…': '12', '€': '14', '™': '20', '\x00': '18'
 }
 large_font = {
-    ' ': '14', '!': '9', '"': '17', '#': '33', '$': '25', '%': '33',
+    ' ': '9', '!': '9', '"': '17', '#': '33', '$': '25', '%': '33',
     '&': '29', "'": '9', '(': '17', ')': '17', '*': '33', '+': '25',
     ',': '13', '-': '25', '.': '9', '/': '17', '0': '25', '1': '13',
     '2': '25', '3': '25', '4': '29', '5': '25', '6': '25', '7': '25',
@@ -82,9 +82,9 @@ large_font = {
 }
 
 
-fk16 = ImageFont.truetype('font/FindersKeepers.ttf', 16)
-fk32 = ImageFont.truetype('font/FindersKeepers.ttf', 32)
-fk64 = ImageFont.truetype('font/FindersKeepers.ttf', 64)
+ds16 = ImageFont.truetype('font/Nintendo-DS-BIOS.ttf', 16)
+ds32 = ImageFont.truetype('font/Nintendo-DS-BIOS.ttf', 32)
+ds64 = ImageFont.truetype('font/Nintendo-DS-BIOS.ttf', 64)
 
 
 def find_string_width(text, size):
