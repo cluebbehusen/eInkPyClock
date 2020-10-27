@@ -27,6 +27,6 @@ if __name__ == '__main__':
     image = Image.new('1', (epd.width, epd.height), 128)
     draw = ImageDraw.Draw(image)
     add_bitcoin_graphics(image, draw, 8, 6, bitcoin_price)
-    draw_line(draw, 0, 400, 48 + 8 * 2, 48 + 6 * 2 + 3)
+    draw_line(draw, 0, 400, 48 + 6 * 2, 48 + 6 * 2 + 3)
     image_buffer = epd.getbuffer(image)
     epd.display(image_buffer)

@@ -8,7 +8,7 @@ eink_width = 400
 def add_bitcoin_graphics(image, draw, xoffset, yoffset, bitcoin_price):
     one = '1'
     draw.text((xoffset, yoffset / 2), one, font=fk64)
-    add_bitcoin_icon(image, xoffset + find_string_width(one, 2) * 2, yoffset)
+    add_bitcoin_icon(image, xoffset * 2 + find_string_width(one, 2), yoffset)
     bitcoin_string = '$' + '{0:,.2f}'.format(bitcoin_price)
     price_xoffset = (eink_width - find_string_width(bitcoin_string, 2) -
                      xoffset)
