@@ -32,6 +32,6 @@ if __name__ == '__main__':
     draw_line(draw, 0, 400, 48 + 6 * 2, 48 + 6 * 2 + 3)
     time = datetime.today().strftime('%H:%M')
     date = datetime.today().strftime('%b %d')
-    add_time_graphics(draw, 8, 48 + 6 * 3 + 3, time, date)
+    add_time_graphics(draw, 8, 48 + 6 * 4, time, date)
     image_buffer = epd.getbuffer(image)
     epd.display(image_buffer)
