@@ -8,6 +8,7 @@ from src.requests.bitcoin import get_bitcoin_price
 # from src.requests.spotify import get_spotify
 # from src.display.weather import draw_weather_icon
 from src.display.bitcoin import add_bitcoin_graphics
+from src.display.general import draw_line
 
 
 if __name__ == '__main__':
@@ -26,5 +27,6 @@ if __name__ == '__main__':
     image = Image.new('1', (epd.width, epd.height), 128)
     draw = ImageDraw.Draw(image)
     add_bitcoin_graphics(image, draw, 6, 6, bitcoin_price)
+    draw_line(draw, 0, 400, 48 + 6 * 2, 48 + 6 * 2 + 3)
     image_buffer = epd.getbuffer(image)
     epd.display(image_buffer)
