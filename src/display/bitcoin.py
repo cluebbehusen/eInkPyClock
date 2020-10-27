@@ -1,4 +1,3 @@
-import locale
 from PIL import Image
 from src.util.fonts import fk64
 
@@ -9,8 +8,7 @@ icon_height = 48
 
 def add_bitcoin_graphics(image, draw, xoffset, yoffset, bitcoin_price):
     add_bitcoin_icon(image, xoffset, yoffset)
-    locale.setlocale(locale.LC_ALL, 'en_US.utf8')
-    btc = '$' + locale.format('%.2f', bitcoin_price, grouping=True)
+    btc = '$' + '{0:,.2f}'.format(bitcoin_price)
     draw.text((xoffset + icon_width + 20, 0), btc, font=fk64)
 
 
