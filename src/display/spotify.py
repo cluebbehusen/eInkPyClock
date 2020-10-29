@@ -40,4 +40,4 @@ def add_spotify_graphics(image, draw, xoffset, yoffset, spotify_info):
     draw.text((image_offset, yoffset), formatted_name, font=ds32)
     draw.text((xoffset, yoffset + 36), formatted_track, font=ds32)
     draw.text((xoffset, yoffset + 72), formatted_artist, font=ds32)
-    draw.text((xoffset, yoffset + 104), spotify_info['time_passed'], font=ds32)
+    draw.text((xoffset, yoffset + 108), spotify_info['time_passed'], font=ds32)
