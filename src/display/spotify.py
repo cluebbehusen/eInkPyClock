@@ -34,7 +34,7 @@ def add_spotify_graphics(image, draw, xoffset, yoffset, spotify_info):
             icon = playlist_icon
         if type == 'artist':
             icon = artist_icon
-        image.paste(icon, (xoffset, yoffset + 72))
+        image.paste(icon, (xoffset, yoffset))
     formatted_name = format_text(eink_width - image_offset - 8,
                                  spotify_info['name'])
     draw.text((xoffset, yoffset + 36), formatted_track, font=ds32)
