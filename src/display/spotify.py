@@ -14,7 +14,7 @@ def format_text(width, text):
         return text
     shortened_text = ''
     for char in text:
-        if (find_string_width(shortened_text + char) <= width):
+        if (find_string_width(shortened_text + char, 1) <= width):
             shortened_text += char
     shortened_text = shortened_text[0:-3] + '...'
     return shortened_text
@@ -37,6 +37,6 @@ def add_spotify_graphics(image, draw, xoffset, yoffset, spotify_info):
         image.paste(icon, (xoffset, yoffset + 72))
     formatted_name = format_text(eink_width - image_offset - 8,
                                  spotify_info['name'])
-    draw.text((xoffset, yoffset), formatted_track, font=ds32)
-    draw.text((xoffset, yoffset + 32), formatted_artist, font=ds32)
-    draw.text((image_offset, yoffset + 72), formatted_name, font=ds32)
+    draw.text((xoffset, yoffset + 36), formatted_track, font=ds32)
+    draw.text((xoffset, yoffset + 72), formatted_artist, font=ds32)
+    draw.text((image_offset, yoffset), formatted_name, font=ds32)
