@@ -36,6 +36,6 @@ if __name__ == '__main__':
     add_time_graphics(draw, 8, 63, time, date)
     draw_box(draw, 0, 400, 183, 186)
     draw_box(draw, 140, 143, 63, 186)
-    add_spotify_graphics(draw, image, 151, 69, spotify)
+    add_spotify_graphics(image, draw, 151, 69, spotify)
     image_buffer = epd.getbuffer(image)
     epd.display(image_buffer)
