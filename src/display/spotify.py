@@ -37,6 +37,7 @@ def add_spotify_graphics(image, draw, xoffset, yoffset, spotify_info):
         image.paste(icon, (xoffset, yoffset))
     formatted_name = format_text(eink_width - image_offset - 8,
                                  spotify_info['name'])
+    draw.text((image_offset, yoffset), formatted_name, font=ds32)
     draw.text((xoffset, yoffset + 36), formatted_track, font=ds32)
     draw.text((xoffset, yoffset + 72), formatted_artist, font=ds32)
-    draw.text((image_offset, yoffset), formatted_name, font=ds32)
+    draw.text((xoffset, yoffset + 104), spotify_info['time_passed'], font=ds32)
