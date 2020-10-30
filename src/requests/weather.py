@@ -18,14 +18,14 @@ def get_weather(config):
         return None
     data = response.json()
     return_data = {}
-    return_data['c'] = {'temp': float(data['current'].get('temp', 0)),
+    return_data['c'] = {'temp': int(round((data['current'].get('temp', 0)))),
                         'id': int(data['current']['weather'][0].get('id', 0))}
     return_data['f'] = []
     for i in range(6):
         obj = data['daily'][i]
         return_data['f'].append({
-            'temp': {'min': float(obj['temp'].get('min', 0)),
-                     'max': float(obj['temp'].get('max', 0))},
+            'temp': {'min': int(round((obj['temp'].get('min', 0)))),
+                     'max': int(round((obj['temp'].get('max', 0))))},
             'id': int(obj['weather'][0].get('id', 0))
         })
     return return_data
