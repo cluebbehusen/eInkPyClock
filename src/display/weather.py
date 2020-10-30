@@ -1,5 +1,5 @@
 from PIL import Image
-from src.util.fonts import ds64, ds32, find_string_width
+from src.util.fonts import ds64, ds32, ds16, find_string_width
 
 cloudy_icon = Image.open('icons/Cloudy.png')
 mist_icon = Image.open('icons/Mist.png')
@@ -11,18 +11,26 @@ thunderstorm_icon = Image.open('icons/Thunderstorm.png')
 
 
 def add_weather_graphics(image, draw, xoffset, yoffset, weather_info):
+    f_32_width = find_string_width('F', 1)
+    f_16_width = find_string_width('F', 0)
     current_temp = str(weather_info['c']['temp'])
     current_temp_width = find_string_width(current_temp, 2)
-    current_id = str(weather_info['c']['id'])
+    current_id = weather_info['c']['id']
     current_high = str(weather_info['f'][0]['temp']['max'])
     current_high_width = find_string_width(current_high, 1)
     current_low = str(weather_info['f'][0]['temp']['min'])
-    draw.text((xoffset, yoffset + 4), current_temp, font=ds64)
-    xincrement = xoffset + current_temp_width + 6
+    current_low_width = find_string_width(current_low, 1)
+    draw.text((xoffset, yoffset + 6), current_temp, font=ds64)
+    xincrement = xoffset + current_temp_width + 2
+    draw.text((xincrement, yoffset + 6), 'F', font=ds32)
+    xincrement += f_32_width + 6
     draw.text((xincrement, yoffset), current_high, font=ds32)
-    draw.text((xincrement, yoffset + 32), current_low, font=ds32)
-    xincrement += current_high_width + 6
-    draw_weather_icon(image, xincrement, yoffset + 24, current_id)
+    draw.text((xincrement, yoffset + 34), current_low, font=ds32)
+    draw.text((xincrement + current_high_width + 2, yoffset),
+              'F', font=ds16)
+    draw.text((xincrement + current_low_width + 2, yoffset),
+              'F', font=ds16)
+    xincrement += current_high_width + f_16_width + 6
     future = weather_info['f'][1:]
 
 
