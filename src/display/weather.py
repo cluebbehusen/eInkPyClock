@@ -22,7 +22,7 @@ def add_weather_graphics(image, draw, xoffset, yoffset, weather_info):
     current_low_width = find_string_width(current_low, 1)
     draw.text((xoffset, yoffset + 5), current_temp, font=ds64)
     xincrement = xoffset + current_temp_width + 2
-    draw.text((xincrement, yoffset + 8), 'F', font=ds32)
+    draw.text((xincrement, yoffset + 10), 'F', font=ds32)
     xincrement += f_32_width + 6
     draw.text((xincrement, yoffset), current_high, font=ds32)
     draw.text((xincrement, yoffset + 34), current_low, font=ds32)
@@ -31,6 +31,7 @@ def add_weather_graphics(image, draw, xoffset, yoffset, weather_info):
     draw.text((xincrement + current_low_width + 2, yoffset + 37),
               'F', font=ds16)
     xincrement += current_high_width + f_16_width + 6
+    draw_weather_icon(image, xincrement, yoffset, current_id)
     future = weather_info['f'][1:]
 
 
