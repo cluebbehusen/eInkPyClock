@@ -2,7 +2,7 @@ from datetime import datetime
 import json
 from PIL import Image, ImageDraw
 import sys
-from time import time, sleep
+import time
 from waveshare_epd import epd4in2
 
 from src.requests.bitcoin import get_bitcoin_price
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     while True:
         hour = int(datetime.today().strftime("%H"))
         if (int(hour) >= 4):
-            start = time()
+            start = time.time()
             sec_left = 60 - int(datetime.today().strftime("%S"))
             bitcoin_price = get_bitcoin_price()
             weather = get_weather(config['weather'])
@@ -46,11 +46,11 @@ if __name__ == '__main__':
             draw_box(draw, 140, 143, 63, 226)
             add_spotify_graphics(image, draw, 151, 75, spotify)
             add_weather_graphics(image, draw, 8, 232, weather)
-            time_elapsed = time() - start
+            time_elapsed = time.time() - start
             remaining_time = sec_left - time_elapsed
             image_buffer = epd.getbuffer(image)
             epd.display(image_buffer)
-            sleep(remaining_time + 120)
+            time.sleep(remaining_time + 120)
         else:
             epd.Clear()
-            sleep(1860)
+            time.sleep(1860)
