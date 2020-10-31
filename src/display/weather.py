@@ -8,6 +8,7 @@ rain_icon = Image.open('icons/Rain.png')
 snow_icon = Image.open('icons/Snow.png')
 sun_icon = Image.open('icons/Sun.png')
 thunderstorm_icon = Image.open('icons/Thunderstorm.png')
+eink_width = 400
 
 
 def add_weather_graphics(image, draw, xoffset, yoffset, weather_info):
@@ -31,8 +32,24 @@ def add_weather_graphics(image, draw, xoffset, yoffset, weather_info):
     draw.text((xincrement + current_low_width + 2, yoffset + 37),
               'F', font=ds16)
     xincrement += current_high_width + f_16_width + 6
-    draw_weather_icon(image, xincrement, yoffset, current_id)
-    future = weather_info['f'][1:]
+    draw_weather_icon(image, xincrement, yoffset + 6, current_id)
+    remaining_space = eink_width - (xincrement + 50)
+    future = weather_info['f']
+    for i in range(1, 3):
+        xoffset = remaining_space / i
+        future_high = future[i]['temp']['max']
+        future_low = future[i]['temp']['min']
+        future_high_width = find_string_width(future_high, 1)
+        future_low_width = find_string_width(future_low, 1)
+        future_id = future[i]['id']
+        draw.text((xoffset, yoffset), future_high, font=ds32)
+        draw.text((xoffset, yoffset + 34), future_low, font=ds32)
+        draw.text((xoffset + future_high_width + 2, yoffset + 3),
+                  'F', font=ds16)
+        draw.text((xoffset + future_low_width + 2, yoffset + 37),
+                  'F', font=ds16)
+        xoffset += future_high_width + f_16_width + 6
+        draw_weather_icon(image, xoffset, yoffset + 6, future_id)
 
 
 def draw_weather_icon(image, xoffset, yoffset, code):
