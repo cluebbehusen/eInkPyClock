@@ -41,7 +41,7 @@ def get_info(token):
         type, name = get_context_from_json(recent['context'], sp)
         track = recent['item'].get('name', None)
         artist = get_artists(recent['item'].get('artists', []))
-        time_passed = ' is listening to'
+        time_passed = 'Currently playing'
     else:
         recent = sp.current_user_recently_played(1)
         item = recent['items'][0]
@@ -101,7 +101,7 @@ def get_time_values(seconds_passed):
 
 def get_time_passed(hours, minutes):
     if hours == 0 and minutes <= 4:
-        return ' is listening to'
+        return 'Currently playing'
     elif hours == 0:
         return str(minutes - (minutes % 5)) + ' minutes ago'
     elif hours == 1:
