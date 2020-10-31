@@ -36,7 +36,7 @@ def add_weather_graphics(image, draw, xoffset, yoffset, weather_info):
     remaining_space = eink_width - (xincrement + 50)
     future = weather_info['f']
     for i in range(1, 3):
-        xoffset = remaining_space / i
+        xoffset = int(remaining_space / i)
         future_high = str(future[i]['temp']['max'])
         future_low = str(future[i]['temp']['min'])
         future_high_width = find_string_width(future_high, 1)
