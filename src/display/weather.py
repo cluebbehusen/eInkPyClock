@@ -37,8 +37,8 @@ def add_weather_graphics(image, draw, xoffset, yoffset, weather_info):
     future = weather_info['f']
     for i in range(1, 3):
         xoffset = remaining_space / i
-        future_high = future[i]['temp']['max']
-        future_low = future[i]['temp']['min']
+        future_high = str(future[i]['temp']['max'])
+        future_low = str(future[i]['temp']['min'])
         future_high_width = find_string_width(future_high, 1)
         future_low_width = find_string_width(future_low, 1)
         future_id = future[i]['id']
