@@ -15,6 +15,12 @@ from src.display.time import add_time_graphics
 from src.display.spotify import add_spotify_graphics
 
 
+def draw_borders():
+    draw_box(draw, 0, 400, 223, 226)
+    draw_box(draw, 140, 143, 63, 226)
+    draw_box(draw, 0, 400, 60, 63)
+
+
 if __name__ == '__main__':
     try:
         with open('config.json', 'r') as config_file:
@@ -22,34 +28,37 @@ if __name__ == '__main__':
     except FileNotFoundError:
         print('Failed to open config file')
         sys.exit(1)
+    if 'spotify' not in config:
+        print('Spotify details missing from config file')
+        sys.exit(1)
+    if 'weather' not in config:
+        print('Weather details missing from config file')
+        sys.exit(1)
     epd = epd4in2.EPD()
     epd.init()
     epd.Clear()
-    time_elapsed = 15.0
     while True:
         hour = int(datetime.today().strftime("%H"))
         if (int(hour) >= 4):
+            sec = int(datetime.today().strftime("%S"))
+            while (sec < 45):
+                time.sleep(1)
+                sec = int(datetime.today().strftime("%S"))
+            future_time = datetime.today() + timedelta(minutes=1)
             bitcoin_price = get_bitcoin_price()
             weather = get_weather(config['weather'])
             spotify = get_spotify(config['spotify'])
             image = Image.new('1', (epd.width, epd.height), 128)
             draw = ImageDraw.Draw(image)
-            add_bitcoin_graphics(image, draw, 8, 6, bitcoin_price)
-            draw_box(draw, 0, 400, 60, 63)
-            future_time = datetime.today() + datetime.timedelta(minutes=1)
+            draw_borders()
             date_string = future_time.strftime('%b %d')
             day_string = future_time.strftime('%a')
             time_string = future_time.strftime('%H:%M')
             add_time_graphics(draw, 8, 66, time_string, date_string,
                               day_string)
-            draw_box(draw, 0, 400, 223, 226)
-            draw_box(draw, 140, 143, 63, 226)
+            add_bitcoin_graphics(image, draw, 8, 6, bitcoin_price)
             add_spotify_graphics(image, draw, 151, 75, spotify)
             add_weather_graphics(image, draw, 8, 232, weather)
-            sec = int(datetime.today().strftime("%S"))
-            while (sec > 5):
-                time.sleep(1)
-                sec = int(datetime.today().strftime("%S"))
             image_buffer = epd.getbuffer(image)
             epd.display(image_buffer)
             time.sleep(120)
