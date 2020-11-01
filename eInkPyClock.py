@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 from PIL import Image, ImageDraw
 import sys
@@ -29,8 +29,6 @@ if __name__ == '__main__':
     while True:
         hour = int(datetime.today().strftime("%H"))
         if (int(hour) >= 4):
-            start = time.time()
-            sec_left = 60 - int(datetime.today().strftime("%S"))
             bitcoin_price = get_bitcoin_price()
             weather = get_weather(config['weather'])
             spotify = get_spotify(config['spotify'])
@@ -38,20 +36,23 @@ if __name__ == '__main__':
             draw = ImageDraw.Draw(image)
             add_bitcoin_graphics(image, draw, 8, 6, bitcoin_price)
             draw_box(draw, 0, 400, 60, 63)
-            date_string = datetime.today().strftime('%b %d')
-            day_string = datetime.today().strftime('%a')
-            time_string = datetime.today().strftime('%H:%M')
+            future_time = datetime.today() + datetime.timedelta(minutes=1)
+            date_string = future_time.strftime('%b %d')
+            day_string = future_time.strftime('%a')
+            time_string = future_time.strftime('%H:%M')
             add_time_graphics(draw, 8, 66, time_string, date_string,
                               day_string)
             draw_box(draw, 0, 400, 223, 226)
             draw_box(draw, 140, 143, 63, 226)
             add_spotify_graphics(image, draw, 151, 75, spotify)
             add_weather_graphics(image, draw, 8, 232, weather)
-            time_elapsed = time.time() - start
-            remaining_time = sec_left - time_elapsed
+            sec = int(datetime.today().strftime("%S"))
+            while (sec > 5):
+                time.sleep(1)
+                sec = int(datetime.today().strftime("%S"))
             image_buffer = epd.getbuffer(image)
             epd.display(image_buffer)
-            time.sleep(remaining_time + 120)
+            time.sleep(120)
         else:
             epd.Clear()
             time.sleep(1860)
