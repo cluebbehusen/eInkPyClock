@@ -62,8 +62,7 @@ def get_info(token):
     }
     for key in return_dict:
         if not return_dict[key]:
-            request_log(str(datetime.now()) +
-                        'Failed to get ' + key + ' from spotipy')
+            request_log('Failed to get ' + key + ' from spotipy')
     return return_dict
 
 

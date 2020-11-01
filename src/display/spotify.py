@@ -1,10 +1,10 @@
 from PIL import Image
 from src.util.fonts import ds32, find_string_width
+from src.util.util import eink_width
 
 playlist_icon = Image.open('icons/Playlist.png')
 artist_icon = Image.open('icons/Artist.png')
 album_icon = Image.open('icons/Album.png')
-eink_width = 400
 
 
 def format_text(width, text):
@@ -21,6 +21,8 @@ def format_text(width, text):
 
 
 def add_spotify_graphics(image, draw, xoffset, yoffset, spotify_info):
+    if not spotify_info:
+        return
     formatted_track = format_text(eink_width - xoffset - 8,
                                   spotify_info['track'])
     formatted_artist = format_text(eink_width - xoffset - 8,
