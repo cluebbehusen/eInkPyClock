@@ -15,7 +15,7 @@ This program requires Python3. Requirements used directly by this program can be
 
 ### API Configuration
 
-In order to access the Spotify API, you must first access the Spotify Developer Porta, create an app, and add [http://www.google.com/](http://www.google.com/) as the Redirect URI for the app. For the OpenWeatherMap API, you must create a free account in order to generate an API key. Then a file named `config.json` with the following format must be added to the root directory of the project.
+In order to access the Spotify API, you must first access the Spotify Developer Portal, create an app, and add [http://www.google.com/](http://www.google.com/) as the Redirect URI for the app. For the OpenWeatherMap API, you must create a free account in order to generate an API key. Then a file named `config.json` with the following format must be added to the root directory of the project.
 
 ```json
 {
