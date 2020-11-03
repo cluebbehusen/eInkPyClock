@@ -18,7 +18,7 @@ from src.util.util import general_log
 
 def draw_borders():
     draw_box(draw, 0, 400, 223, 226)
-    draw_box(draw, 140, 143, 63, 226)
+    draw_box(draw, 145, 148, 63, 226)
     draw_box(draw, 0, 400, 60, 63)
 
 
@@ -71,7 +71,7 @@ if __name__ == '__main__':
                 add_time_graphics(draw, 8, 66, time_string, date_string,
                                   day_string)
                 add_bitcoin_graphics(image, draw, 8, 6, bitcoin_price)
-                add_spotify_graphics(image, draw, 151, 75, spotify)
+                add_spotify_graphics(image, draw, 156, 75, spotify)
                 add_weather_graphics(image, draw, 8, 232, weather)
                 image_buffer = epd.getbuffer(image)
                 epd.display(image_buffer)
