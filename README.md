@@ -5,6 +5,8 @@ Python program for an E-Ink display to show the time and other information when 
 
 This program is written for [Waveshare's 4.2 inch e-ink display](https://www.waveshare.com/product/4.2inch-e-paper-module.htm). The program was written for and tested on a Raspberry Pi Zero W. The program displays the current current price of Bitcoin in USD; the local time, date, and day of the week; the current or most recent song, artist, and context (playlist, artist, album) from Spotify; and the current weather information along with the forecast for the next two days.
 
+The program fetches all information and updates the display every 3 minutes from approximately 4AM to midnight. Between midnight and 4AM, the display is cleared to prevent any burn in from occurring over long term use.
+
 ## Running the Program
 
 ### Requirements
