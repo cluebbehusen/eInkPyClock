@@ -8,10 +8,11 @@ rain_icon = Image.open('icons/Rain.png')
 snow_icon = Image.open('icons/Snow.png')
 sun_icon = Image.open('icons/Sun.png')
 thunderstorm_icon = Image.open('icons/Thunderstorm.png')
-eink_width = 400
 
 
 def add_weather_graphics(image, draw, xoffset, yoffset, weather_info):
+    if not weather_info:
+        return
     f_32_width = find_string_width('F', 1)
     f_16_width = find_string_width('F', 0)
     current_temp = str(weather_info['c']['temp'])

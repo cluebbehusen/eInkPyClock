@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 from PIL import Image, ImageDraw
 import sys
@@ -13,6 +13,13 @@ from src.display.bitcoin import add_bitcoin_graphics
 from src.display.general import draw_box
 from src.display.time import add_time_graphics
 from src.display.spotify import add_spotify_graphics
+from src.util.util import general_log
+
+
+def draw_borders():
+    draw_box(draw, 0, 400, 223, 226)
+    draw_box(draw, 145, 148, 63, 226)
+    draw_box(draw, 0, 400, 60, 63)
 
 
 if __name__ == '__main__':
@@ -22,36 +29,55 @@ if __name__ == '__main__':
     except FileNotFoundError:
         print('Failed to open config file')
         sys.exit(1)
+    if 'spotify' not in config:
+        print('Spotify details missing from config file')
+        sys.exit(1)
+    if 'weather' not in config:
+        print('Weather details missing from config file')
+        sys.exit(1)
     epd = epd4in2.EPD()
     epd.init()
     epd.Clear()
-    time_elapsed = 15.0
     while True:
         hour = int(datetime.today().strftime("%H"))
         if (int(hour) >= 4):
-            start = time.time()
-            sec_left = 60 - int(datetime.today().strftime("%S"))
-            bitcoin_price = get_bitcoin_price()
-            weather = get_weather(config['weather'])
-            spotify = get_spotify(config['spotify'])
+            sec = int(datetime.today().strftime("%S"))
+            while (sec < 50 or sec > 55):
+                time.sleep(1)
+                sec = int(datetime.today().strftime("%S"))
+            future_time = datetime.today() + timedelta(minutes=1)
+            bitcoin_price = 0
+            weather = None
+            spotify = None
+            try:
+                bitcoin_price = get_bitcoin_price()
+            except Exception as e:
+                general_log(' Failed to get bitcoin price: ' + str(e))
+            try:
+                weather = get_weather(config['weather'])
+            except Exception as e:
+                general_log(' Failed to get weather: ' + str(e))
+            try:
+                spotify = get_spotify(config['spotify'])
+            except Exception as e:
+                general_log(' Failed to get spotify: ' + str(e))
             image = Image.new('1', (epd.width, epd.height), 128)
             draw = ImageDraw.Draw(image)
-            add_bitcoin_graphics(image, draw, 8, 6, bitcoin_price)
-            draw_box(draw, 0, 400, 60, 63)
-            date_string = datetime.today().strftime('%b %d')
-            day_string = datetime.today().strftime('%a')
-            time_string = datetime.today().strftime('%H:%M')
-            add_time_graphics(draw, 8, 66, time_string, date_string,
-                              day_string)
-            draw_box(draw, 0, 400, 223, 226)
-            draw_box(draw, 140, 143, 63, 226)
-            add_spotify_graphics(image, draw, 151, 75, spotify)
-            add_weather_graphics(image, draw, 8, 232, weather)
-            time_elapsed = time.time() - start
-            remaining_time = sec_left - time_elapsed
-            image_buffer = epd.getbuffer(image)
-            epd.display(image_buffer)
-            time.sleep(remaining_time + 120)
+            try:
+                draw_borders()
+                date_string = future_time.strftime('%b %d')
+                day_string = future_time.strftime('%a')
+                time_string = future_time.strftime('%H:%M')
+                add_time_graphics(draw, 8, 66, time_string, date_string,
+                                  day_string)
+                add_bitcoin_graphics(image, draw, 8, 6, bitcoin_price)
+                add_spotify_graphics(image, draw, 156, 75, spotify)
+                add_weather_graphics(image, draw, 8, 232, weather)
+                image_buffer = epd.getbuffer(image)
+                epd.display(image_buffer)
+            except Exception as e:
+                general_log(' Failed when drawing graphics: ' + str(e))
+            time.sleep(120)
         else:
             epd.Clear()
             time.sleep(1860)

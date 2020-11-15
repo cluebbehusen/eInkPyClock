@@ -1,4 +1,3 @@
-import datetime
 import requests as req
 
 from src.util.util import request_log
@@ -12,8 +11,7 @@ def get_weather(config):
                        str(lat) + '&lon=' + str(long) + '&appid=' + api_key +
                        '&exclude=minutely,hourly,alerts&units=imperial')
     if response.status_code > 400 and response.status_code < 499:
-        request_log(str(datetime.datetime.now()) +
-                    ' Open weather get request failed with status code: ' +
+        request_log(' Open weather get request failed with status code: ' +
                     str(response.status_code))
         return None
     data = response.json()
@@ -21,7 +19,7 @@ def get_weather(config):
     return_data['c'] = {'temp': int(round((data['current'].get('temp', 0)))),
                         'id': int(data['current']['weather'][0].get('id', 0))}
     return_data['f'] = []
-    for i in range(6):
+    for i in range(3):
         obj = data['daily'][i]
         return_data['f'].append({
             'temp': {'min': int(round((obj['temp'].get('min', 0)))),
